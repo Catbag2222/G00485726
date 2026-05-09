@@ -53,10 +53,12 @@ export class HomePage implements OnInit {
     }
   }
 
-  // When a movie is clicked, go to movie-details page and pass the movie data
-  goToMovie(movie: any) {
-    this.router.navigate(['/movie-details'], { state: { movie } });
-  }
+  // When a movie poster is clicked, save it to localStorage and go to movie-details
+// We store in localStorage so it works reliably from any page
+goToMovie(movie: any) {
+  localStorage.setItem('selectedMovie', JSON.stringify(movie));
+  this.router.navigate(['/movie-details'], { state: { movie } });
+}
 
   // Go to the favourites page
   goToFavourites() {

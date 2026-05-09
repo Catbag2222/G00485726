@@ -55,10 +55,12 @@ export class DetailsPage implements OnInit {
     });
   }
 
-  // When a movie in the list is clicked, go to the movie details page
-  // Pass the movie object so the movie details page can use it
+  // When a movie in the list is clicked, save it to localStorage and navigate
+  // We use localStorage here because router state doesn't work reliably
+  // when navigating from this page to movie-details
   goToMovie(movie: any) {
-    this.router.navigate(['/movie-details'], { state: { movie } });
+    localStorage.setItem('selectedMovie', JSON.stringify(movie));
+    this.router.navigate(['/movie-details']);
   }
 
   // Navigate back to the home page

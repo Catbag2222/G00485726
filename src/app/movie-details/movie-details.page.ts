@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 })
 export class MovieDetailsPage implements OnInit {
 
-  // The movie object passed from the home page when a poster was clicked
+  // The movie object - loaded from router state or localStorage
   movie: any;
 
   // Array to hold all the cast members for this movie
@@ -34,14 +34,35 @@ export class MovieDetailsPage implements OnInit {
   isFavourite: boolean = false;
 
   constructor(private movieService: MovieService, private router: Router) {
-    // getCurrentNavigation gets the data passed from the previous page
-    // The home page passed the movie object when the user clicked a poster
+    // First try to get the movie from router state (when coming from home page)
     const nav = this.router.getCurrentNavigation();
     this.movie = nav?.extras?.state?.['movie'];
+
+    // If no router state, get it from localStorage
+    // This happens when coming from the details page or favourites page
+    if (!this.movie) {
+      this.movie = JSON.parse(localStorage.getItem('selectedMovie') || '{}');
+    }
   }
 
-  // Runs automatically when the page loads
+  // Runs automatically when the page first loads
   ngOnInit() {
+    this.loadCredits();
+    this.checkFavourite();
+  }
+
+  // ionViewWillEnter runs every time the page is navigated to
+  // This fixes the issue where old cast/crew data was showing from a previous movie
+  ionViewWillEnter() {
+    // Get the latest selected movie from localStorage each time the page opens
+    const stored = localStorage.getItem('selectedMovie');
+    if (stored) {
+      this.movie = JSON.parse(stored);
+    }
+
+    // Clear the old cast and crew before loading new ones
+    this.cast = [];
+    this.crew = [];
     this.loadCredits();
     this.checkFavourite();
   }
@@ -56,7 +77,6 @@ export class MovieDetailsPage implements OnInit {
   }
 
   // Checks localStorage to see if this movie is already a favourite
-  // localStorage saves data in the browser that persists after the app closes
   checkFavourite() {
     const favs = JSON.parse(localStorage.getItem('favourites') || '[]');
     // some() checks if any item in the array matches this movie's id
@@ -64,29 +84,22 @@ export class MovieDetailsPage implements OnInit {
   }
 
   // Adds or removes this movie from the favourites list
-  // Also saves the updated list to localStorage so it persists
   toggleFavourite() {
-    // Get the current favourites list from localStorage
     let favs = JSON.parse(localStorage.getItem('favourites') || '[]');
 
     if (this.isFavourite) {
-      // If already a favourite, remove it using filter()
       // filter() keeps everything EXCEPT the movie with this id
       favs = favs.filter((f: any) => f.id !== this.movie.id);
     } else {
-      // If not a favourite, add it to the list
       favs.push(this.movie);
     }
 
     // Save the updated list back to localStorage
     localStorage.setItem('favourites', JSON.stringify(favs));
-
-    // Flip the isFavourite flag to update the button text
     this.isFavourite = !this.isFavourite;
   }
 
   // When a cast or crew member is clicked, go to the details page
-  // Pass the person object so the details page can use it
   goToPerson(person: any) {
     this.router.navigate(['/details'], { state: { person } });
   }
