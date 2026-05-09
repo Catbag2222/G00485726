@@ -12,6 +12,20 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-header>
+  <ion-toolbar color="primary">
+    <!-- Show student number at the top -->
+    <ion-title>G00485726</ion-title>
+
+    <!-- Heart icon in the top right to go to favourites -->
+    <ion-buttons slot="end">
+      <ion-button (click)="goToFavourites()">
+        <ion-icon name="heart" style="color:red; font-size:24px"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
 
   <!-- Search box where user types a movie name -->
@@ -19,23 +33,21 @@
     <ion-input [(ngModel)]="searchText" placeholder="Movie Name" label="Search" labelPlacement="floating"></ion-input>
   </ion-item>
 
-  <!-- Search button - calls the search() function when clicked -->
+  <!-- Search button -->
   <ion-button expand="full" (click)="search()">SEARCH</ion-button>
 
-  <!-- Heading that changes depending on trending or search results -->
-  <p><strong>{{ heading }}</strong></p>
+  <!-- Heading -->
+  <p style="padding-left:10px"><strong>{{ heading }}</strong></p>
 
-  <!-- Loop through each movie and display it -->
-  <div *ngFor="let movie of movies" (click)="goToMovie(movie)">
+  <!-- Grid layout like Letterboxd -->
+<div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:5px; padding:5px;">
+    <!-- Loop through each movie -->
+    <div *ngFor="let movie of movies" (click)="goToMovie(movie)">
 
-    <!-- Show the movie poster image if it has one -->
-    <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:150px"/>
+      <!-- Show the movie poster -->
+      <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:100%; border-radius:5px"/>
 
-    <!-- Show the movie description -->
-    <p>{{ movie.overview }}</p>
-
-    <!-- A line to separate each movie -->
-    <hr/>
+    </div>
   </div>
 
 </ion-content>

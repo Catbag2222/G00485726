@@ -35,3 +35,32 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+/* General background and text styling for the whole app */
+ion-content {
+  --background: #1a1a2e;
+  --color: white;
+}
+
+/* Style each movie card */
+ion-content div {
+  background: #16213e;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Make movie title text white */
+ion-content p {
+  color: white;
+}
+
+/* Make headings white */
+ion-content h3 {
+  color: white;
+  padding-left: 10px;
+}
+
+/* Style the toolbar title */
+ion-title {
+  font-weight: bold;
+}
