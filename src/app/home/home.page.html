@@ -6,20 +6,6 @@
     <!-- Heart icon in the top right to go to favourites -->
     <ion-buttons slot="end">
       <ion-button (click)="goToFavourites()">
-        <ion-icon name="heart"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-header>
-  <ion-toolbar color="primary">
-    <!-- Show student number at the top -->
-    <ion-title>G00485726</ion-title>
-
-    <!-- Heart icon in the top right to go to favourites -->
-    <ion-buttons slot="end">
-      <ion-button (click)="goToFavourites()">
         <ion-icon name="heart" style="color:red; font-size:24px"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -39,8 +25,9 @@
   <!-- Heading -->
   <p style="padding-left:10px"><strong>{{ heading }}</strong></p>
 
-  <!-- Grid layout like Letterboxd -->
-<div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:5px; padding:5px;">
+  <!-- Grid layout like Letterboxd - source: CSS Grid MDN docs -->
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:5px; padding:5px;">
+
     <!-- Loop through each movie -->
     <div *ngFor="let movie of movies" (click)="goToMovie(movie)">
 

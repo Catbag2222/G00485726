@@ -25,42 +25,45 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
-/* General background and text styling for the whole app */
+/* Main background - darkest navy */
 ion-content {
-  --background: #1a1a2e;
+  --background: #262B40;
   --color: white;
 }
 
-/* Style each movie card */
-ion-content div {
-  background: #16213e;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 10px;
+/* Toolbar colour - bright blue */
+ion-toolbar {
+  --background: #0474C4;
+  --color: white;
 }
 
-/* Make movie title text white */
+/* Each movie/person card */
+ion-content div {
+  background: #06457F;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* All paragraph text white */
 ion-content p {
   color: white;
 }
 
-/* Make headings white */
+/* Headings white */
 ion-content h3 {
   color: white;
   padding-left: 10px;
 }
 
-/* Style the toolbar title */
+/* Search bar background */
+ion-item {
+  --background: #2C444C;
+  --color: white;
+}
+
+/* Toolbar title bold and white */
 ion-title {
+  color: white;
   font-weight: bold;
 }
