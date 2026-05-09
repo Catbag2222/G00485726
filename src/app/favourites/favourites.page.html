@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- Title at the top -->
+    <ion-title>Favourite Movies</ion-title>
+
+    <!-- Home icon in the top right -->
+    <ion-buttons slot="end">
+      <ion-button (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Loop through each favourite movie and display it -->
+  <div *ngFor="let movie of favourites">
+
+    <!-- Show the movie poster if it has one -->
+    <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:150px"/>
+
+    <!-- Show the movie title -->
+    <p>{{ movie.title }}</p>
+
+    <!-- Details button goes to the movie details page -->
+    <ion-button (click)="goToMovie(movie)">DETAILS</ion-button>
+
+    <hr/>
+  </div>
+
+</ion-content>

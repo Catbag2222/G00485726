@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- Show the person's name at the top -->
+    <ion-title>{{ personDetails?.name }}</ion-title>
+
+    <!-- Home and Favourites icons in the top right -->
+    <ion-buttons slot="end">
+      <ion-button (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </ion-button>
+      <ion-button (click)="goToFavourites()">
+        <ion-icon name="heart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Show their photo if they have one, otherwise show "No image" -->
+  <img *ngIf="personDetails?.profile_path" [src]="getImage(personDetails.profile_path)" style="width:150px"/>
+  <p *ngIf="!personDetails?.profile_path">No image</p>
+
+  <!-- Show birthday and deathday only if birthday exists -->
+  <p *ngIf="personDetails?.birthday">
+    {{ personDetails.birthday }} - {{ personDetails.deathday || '' }}
+  </p>
+
+  <!-- Show place of birth only if it exists -->
+  <p *ngIf="personDetails?.place_of_birth">{{ personDetails.place_of_birth }}</p>
+
+  <!-- Show also known as only if the list is not empty -->
+  <p *ngIf="personDetails?.also_known_as?.length > 0">
+    Also Known As: {{ personDetails.also_known_as.join(', ') }}
+  </p>
+
+  <!-- Show their biography -->
+  <p>{{ personDetails?.biography }}</p>
+
+  <!-- Show the list of movies they appeared in -->
+  <div *ngFor="let movie of movies" (click)="goToMovie(movie)">
+    <p>{{ movie.title }}</p>
+    <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:80px"/>
+    <hr/>
+  </div>
+
+</ion-content>

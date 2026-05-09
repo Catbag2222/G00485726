@@ -1,0 +1,50 @@
+<ion-header>
+<ion-toolbar style="--background: #3880ff; --color: white;">
+      <!-- Show the movie title at the top -->
+    <ion-title>{{ movie?.title }}</ion-title>
+
+    <!-- Home and Favourites icons in the top right -->
+    <ion-buttons slot="end">
+      <ion-button (click)="goHome()">
+        <ion-icon name="home" style="color:white; font-size:24px"></ion-icon>
+      </ion-button>
+      <ion-button (click)="goToFavourites()">
+        <ion-icon name="heart" style="color:red; font-size:24px"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Show the movie description -->
+  <p>{{ movie?.overview }}</p>
+
+  <!-- Button changes text depending on if it's a favourite or not -->
+  <ion-button (click)="toggleFavourite()" [color]="isFavourite ? 'danger' : 'primary'">
+    {{ isFavourite ? 'REMOVE FROM FAVOURITES' : 'ADD TO FAVOURITES' }}
+  </ion-button>
+
+  <!-- Cast section -->
+  <h3>Cast</h3>
+
+  <!-- Loop through each cast member -->
+  <div *ngFor="let person of cast" (click)="goToPerson(person)">
+    <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)" style="width:100px"/>
+    <p>{{ person.character }}</p>
+    <p>{{ person.name }}</p>
+    <hr/>
+  </div>
+
+  <!-- Crew section -->
+  <h3>Crew</h3>
+
+  <!-- Loop through each crew member -->
+  <div *ngFor="let person of crew" (click)="goToPerson(person)">
+    <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)" style="width:100px"/>
+    <p>{{ person.job }}</p>
+    <p>{{ person.name }}</p>
+    <hr/>
+  </div>
+
+</ion-content>
