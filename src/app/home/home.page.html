@@ -1,9 +1,10 @@
+<!-- Header bar at the top of the page -->
 <ion-header>
   <ion-toolbar>
-    <!-- Show student number at the top -->
+    <!-- Student number shown as the page title -->
     <ion-title>G00485726</ion-title>
 
-    <!-- Heart icon in the top right to go to favourites -->
+    <!-- Heart icon on the right - goes to favourites page when clicked -->
     <ion-buttons slot="end">
       <ion-button (click)="goToFavourites()">
         <ion-icon name="heart" style="color:red; font-size:24px"></ion-icon>
@@ -14,28 +15,27 @@
 
 <ion-content>
 
-  <!-- Search box where user types a movie name -->
+  <!-- Search box - [(ngModel)] keeps the searchText variable updated as the user types -->
   <ion-item>
     <ion-input [(ngModel)]="searchText" placeholder="Movie Name" label="Search" labelPlacement="floating"></ion-input>
   </ion-item>
 
-  <!-- Search button -->
+  <!-- Calls the search() function when clicked -->
   <ion-button expand="full" (click)="search()">SEARCH</ion-button>
 
-  <!-- Heading -->
+  <!-- Heading changes between "Today's Trending Movies" and the search term -->
   <p style="padding-left:10px"><strong>{{ heading }}</strong></p>
 
-  <!-- Grid layout like Letterboxd - source: CSS Grid MDN docs -->
-<div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:5px; padding:5px;">
-    <!-- Loop through each movie -->
+  <!-- CSS Grid layout showing 5 movie posters per row -->
+  <!-- Source: https://developer.mozilla.org/en-US/docs/Web/CSS/grid -->
+  <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:5px; padding:5px;">
+
+    <!-- Loop through each movie and display its poster and title -->
     <div *ngFor="let movie of movies" (click)="goToMovie(movie)" style="text-align:center">
-
-      <!-- Show the movie poster -->
       <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:100%; border-radius:5px"/>
-
-      <!-- Show the movie title under the poster -->
-<p style="font-size:13px; margin:3px 0; color:white; font-weight:bold">{{ movie.title }}</p>
+      <p style="font-size:13px; margin:3px 0; color:white; font-weight:bold">{{ movie.title }}</p>
     </div>
+
   </div>
 
 </ion-content>

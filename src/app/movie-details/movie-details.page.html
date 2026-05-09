@@ -1,34 +1,44 @@
+<!-- Header bar at the top of the page -->
 <ion-header>
-<ion-toolbar style="--background: #3880ff; --color: white;">
-      <!-- Show the movie title at the top -->
+  <ion-toolbar style="--background: #3880ff; --color: white;">
+
+    <!-- Shows the movie title passed from the home page -->
+    <!-- The ? means if movie is null, don't crash - just show nothing -->
     <ion-title>{{ movie?.title }}</ion-title>
 
-    <!-- Home and Favourites icons in the top right -->
+    <!-- Home and heart icons on the right side of the toolbar -->
     <ion-buttons slot="end">
+
+      <!-- Goes back to the home page when clicked -->
       <ion-button (click)="goHome()">
         <ion-icon name="home" style="color:white; font-size:24px"></ion-icon>
       </ion-button>
+
+      <!-- Goes to the favourites page when clicked -->
       <ion-button (click)="goToFavourites()">
         <ion-icon name="heart" style="color:red; font-size:24px"></ion-icon>
       </ion-button>
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <!-- Show the movie description -->
+  <!-- Shows the movie description from the TMDB API -->
   <p>{{ movie?.overview }}</p>
 
-  <!-- Button changes text depending on if it's a favourite or not -->
+  <!-- Add/Remove favourites button -->
+  <!-- [color] changes the button colour based on isFavourite -->
+  <!-- The text also changes depending on if it's already a favourite -->
   <ion-button (click)="toggleFavourite()" [color]="isFavourite ? 'danger' : 'primary'">
     {{ isFavourite ? 'REMOVE FROM FAVOURITES' : 'ADD TO FAVOURITES' }}
   </ion-button>
 
-  <!-- Cast section -->
   <h3>Cast</h3>
 
-  <!-- Loop through each cast member -->
+  <!-- Loop through each cast member and show their photo, character and name -->
+  <!-- Clicking a cast member goes to their details page -->
   <div *ngFor="let person of cast" (click)="goToPerson(person)">
     <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)" style="width:100px"/>
     <p>{{ person.character }}</p>
@@ -36,10 +46,10 @@
     <hr/>
   </div>
 
-  <!-- Crew section -->
   <h3>Crew</h3>
 
-  <!-- Loop through each crew member -->
+  <!-- Loop through each crew member and show their photo, job and name -->
+  <!-- Clicking a crew member goes to their details page -->
   <div *ngFor="let person of crew" (click)="goToPerson(person)">
     <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)" style="width:100px"/>
     <p>{{ person.job }}</p>

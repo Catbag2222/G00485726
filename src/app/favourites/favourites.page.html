@@ -1,32 +1,40 @@
+<!-- Header bar at the top of the page -->
 <ion-header>
   <ion-toolbar>
-    <!-- Title at the top -->
+
+    <!-- Title shown at the top of the favourites page -->
     <ion-title>Favourite Movies</ion-title>
 
-    <!-- Home icon in the top right -->
+    <!-- Home icon on the right side of the toolbar -->
     <ion-buttons slot="end">
+
+      <!-- Goes back to the home page when clicked -->
       <ion-button (click)="goHome()">
-        <ion-icon name="home"></ion-icon>
+        <ion-icon name="home" style="color:white; font-size:24px"></ion-icon>
       </ion-button>
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <!-- Loop through each favourite movie and display it -->
+  <!-- Loop through each movie in the favourites array -->
+  <!-- The favourites array is loaded from localStorage in favourites.page.ts -->
   <div *ngFor="let movie of favourites">
 
-    <!-- Show the movie poster if it has one -->
+    <!-- Shows the movie poster if it has one -->
     <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:150px"/>
 
-    <!-- Show the movie title -->
+    <!-- Shows the movie title -->
     <p>{{ movie.title }}</p>
 
-    <!-- Details button goes to the movie details page -->
+    <!-- Clicking Details goes to the movie details page for this movie -->
     <ion-button (click)="goToMovie(movie)">DETAILS</ion-button>
 
+    <!-- Line to separate each movie -->
     <hr/>
+
   </div>
 
 </ion-content>

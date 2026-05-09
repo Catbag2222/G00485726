@@ -1,42 +1,56 @@
+<!-- Header bar at the top of the page -->
 <ion-header>
   <ion-toolbar>
-    <!-- Show the person's name at the top -->
+
+    <!-- Shows the person's name - the ? means don't crash if personDetails is null -->
     <ion-title>{{ personDetails?.name }}</ion-title>
 
-    <!-- Home and Favourites icons in the top right -->
+    <!-- Home and heart icons on the right side of the toolbar -->
     <ion-buttons slot="end">
+
+      <!-- Goes back to the home page when clicked -->
       <ion-button (click)="goHome()">
-        <ion-icon name="home"></ion-icon>
+        <ion-icon name="home" style="color:white; font-size:24px"></ion-icon>
       </ion-button>
+
+      <!-- Goes to the favourites page when clicked -->
       <ion-button (click)="goToFavourites()">
-<ion-icon name="heart" style="color:red; font-size:24px"></ion-icon>      </ion-button>
+        <ion-icon name="heart" style="color:red; font-size:24px"></ion-icon>
+      </ion-button>
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <!-- Show their photo if they have one, otherwise show "No image" -->
+  <!-- Shows the person's photo if they have one -->
+  <!-- *ngIf only shows this if profile_path exists -->
   <img *ngIf="personDetails?.profile_path" [src]="getImage(personDetails.profile_path)" style="width:150px"/>
+
+  <!-- If no photo available, show "No image" text instead -->
   <p *ngIf="!personDetails?.profile_path">No image</p>
 
-  <!-- Show birthday and deathday only if birthday exists -->
+  <!-- Only shows birthday if it exists in the API data -->
+  <!-- Also shows deathday if it exists, otherwise shows nothing -->
   <p *ngIf="personDetails?.birthday">
     {{ personDetails.birthday }} - {{ personDetails.deathday || '' }}
   </p>
 
-  <!-- Show place of birth only if it exists -->
+  <!-- Only shows place of birth if it exists in the API data -->
   <p *ngIf="personDetails?.place_of_birth">{{ personDetails.place_of_birth }}</p>
 
-  <!-- Show also known as only if the list is not empty -->
+  <!-- Only shows Also Known As if the list has at least one name -->
+  <!-- join(', ') turns the array into a comma separated string -->
   <p *ngIf="personDetails?.also_known_as?.length > 0">
     Also Known As: {{ personDetails.also_known_as.join(', ') }}
   </p>
 
-  <!-- Show their biography -->
+  <!-- Shows the person's biography from the TMDB API -->
   <p>{{ personDetails?.biography }}</p>
 
-  <!-- Show the list of movies they appeared in -->
+  <!-- Loop through each movie this person appeared in -->
+  <!-- Clicking a movie goes to the movie details page -->
   <div *ngFor="let movie of movies" (click)="goToMovie(movie)">
     <p>{{ movie.title }}</p>
     <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:80px"/>
