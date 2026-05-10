@@ -19,22 +19,18 @@
 
 <ion-content>
 
-  <!-- Loop through each movie in the favourites array -->
-  <!-- The favourites array is loaded from localStorage in favourites.page.ts -->
-  <div *ngFor="let movie of favourites">
+  <!-- Shown when there are no favourites saved yet -->
+  <div *ngIf="favourites.length === 0" style="text-align:center; padding:40px">
+    <ion-icon name="heart-outline" style="font-size:48px; color:grey"></ion-icon>
+    <p style="color:grey">No favourite movies yet.</p>
+  </div>
 
-    <!-- Shows the movie poster if it has one -->
-    <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:150px"/>
-
-    <!-- Shows the movie title -->
-    <p>{{ movie.title }}</p>
-
-    <!-- Clicking Details goes to the movie details page for this movie -->
-    <ion-button (click)="goToMovie(movie)">DETAILS</ion-button>
-
-    <!-- Line to separate each movie -->
-    <hr/>
-
+  <!-- CSS grid layout matching the home page - 5 columns of movie tiles -->
+  <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:5px; padding:5px;">
+    <div *ngFor="let movie of favourites" (click)="goToMovie(movie)" style="text-align:center">
+      <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" style="width:100%; border-radius:5px"/>
+      <p style="font-size:13px; margin:3px 0; color:white; font-weight:bold">{{ movie.title }}</p>
+    </div>
   </div>
 
 </ion-content>

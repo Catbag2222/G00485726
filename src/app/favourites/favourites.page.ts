@@ -46,6 +46,7 @@ export class FavouritesPage {
   // When the Details button is clicked, go to the movie details page
   // Pass the movie object so the movie details page can display it
   goToMovie(movie: any) {
+    localStorage.setItem('selectedMovie', JSON.stringify(movie));
     this.router.navigate(['/movie-details'], { state: { movie } });
   }
 

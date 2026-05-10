@@ -37,24 +37,24 @@
 
   <h3>Cast</h3>
 
-  <!-- Loop through each cast member and show their photo, character and name -->
-  <!-- Clicking a cast member goes to their details page -->
-  <div *ngFor="let person of cast" (click)="goToPerson(person)">
-    <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)" style="width:100px"/>
-    <p>{{ person.character }}</p>
-    <p>{{ person.name }}</p>
-    <hr/>
+  <!-- CSS grid layout matching the home page - 5 columns of cast member tiles -->
+  <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:5px; padding:5px;">
+    <div *ngFor="let person of cast" (click)="goToPerson(person)" style="text-align:center">
+      <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)" style="width:100%; border-radius:5px"/>
+      <p style="font-size:11px; margin:2px 0; color:white; font-weight:bold">{{ person.name }}</p>
+      <p style="font-size:10px; margin:2px 0; color:lightgrey">{{ person.character }}</p>
+    </div>
   </div>
 
   <h3>Crew</h3>
 
-  <!-- Loop through each crew member and show their photo, job and name -->
-  <!-- Clicking a crew member goes to their details page -->
-  <div *ngFor="let person of crew" (click)="goToPerson(person)">
-    <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)" style="width:100px"/>
-    <p>{{ person.job }}</p>
-    <p>{{ person.name }}</p>
-    <hr/>
+  <!-- CSS grid layout matching the home page - 5 columns of crew member tiles -->
+  <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:5px; padding:5px;">
+    <div *ngFor="let person of crew" (click)="goToPerson(person)" style="text-align:center">
+      <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)" style="width:100%; border-radius:5px"/>
+      <p style="font-size:11px; margin:2px 0; color:white; font-weight:bold">{{ person.name }}</p>
+      <p style="font-size:10px; margin:2px 0; color:lightgrey">{{ person.job }}</p>
+    </div>
   </div>
 
 </ion-content>
